@@ -155,7 +155,7 @@ export const startDateStyle = () => {
         borderRadius:"4px 0 0 4px",
         borderColour:"transparent",
         color:"#fff",
-        backgroundColor:"#357abd",
+        backgroundColor:"#446ab5",
         cursor:"pointer"
     };
 };
@@ -165,7 +165,7 @@ export const endDateStyle = () => {
         borderRadius:"0 4px 4px 0",
         borderColour:"transparent",
         color:"#fff",
-        backgroundColor:"#357abd",
+        backgroundColor:"#446ab5",
         cursor:"pointer"
     };
 };
