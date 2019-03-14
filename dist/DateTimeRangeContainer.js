@@ -73,8 +73,8 @@ function (_React$Component) {
       this.resize();
     }
   }, {
-    key: "componentWillMount",
-    value: function componentWillMount() {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
       window.removeEventListener('resize', this.resize);
       document.removeEventListener("keydown", this.keyDown, false);
     }
