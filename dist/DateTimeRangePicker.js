@@ -110,10 +110,19 @@ function (_React$Component) {
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps) {
+      var start = null,
+          end = null;
+
       if (!this.props.start.isSame(prevProps.start)) {
-        this.updateStartEndAndLabels(this.props.start, this.state.end);
-      } else if (!this.props.end.isSame(prevProps.end)) {
-        this.updateStartEndAndLabels(this.state.start, this.props.end);
+        start = this.props.start;
+      }
+
+      if (!this.props.end.isSame(prevProps.end)) {
+        end = this.props.end;
+      }
+
+      if (start || end) {
+        this.updateStartEndAndLabels(start || this.state.start, end || this.state.end);
       }
     }
   }, {
@@ -253,7 +262,7 @@ function (_React$Component) {
 
       if ((0, _DateSelectedUtils.pastMaxDate)(date, this.props.maxDate, true)) {
         return false;
-      } // If Valid Time Change allow the change else set new start and end times 
+      } // If Valid Time Change allow the change else set new start and end times
       // to be minute ahead/behind the new date
 
 
@@ -313,7 +322,7 @@ function (_React$Component) {
       if ((0, _DateSelectedUtils.pastMaxDate)(newDate, this.props.maxDate, true)) {
         this.updateStartEndAndLabels(this.state.start, this.state.end);
         return false;
-      } // Else if date valid and date change valid update the date, 
+      } // Else if date valid and date change valid update the date,
       // if date invalid go into update invalid mode, adds/subtract 1 days from start/stop value
 
 

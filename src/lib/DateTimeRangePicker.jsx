@@ -51,16 +51,20 @@ class DateTimeRangePicker extends React.Component {
         this.setToRangeValue(this.state.start, this.state.end)
     }
 
-    componentDidUpdate(prevProps){
-        if(!this.props.start.isSame(prevProps.start)){
-            this.updateStartEndAndLabels(this.props.start, this.state.end);
-        }
-        else if(!this.props.end.isSame(prevProps.end)){
-            this.updateStartEndAndLabels(this.state.start, this.props.end);
-        }
+  componentDidUpdate(prevProps){
+    let start = null, end = null;
+    if (!this.props.start.isSame(prevProps.start)) {
+      start = this.props.start;
     }
+    if (!this.props.end.isSame(prevProps.end)) {
+      end = this.props.end;
+    }
+    if (start || end) {
+      this.updateStartEndAndLabels(start || this.state.start, end || this.state.end);
+    }
+  }
 
-    applyCallback(){
+  applyCallback(){
         this.props.applyCallback(this.state.start, this.state.end);
         this.props.changeVisibleState();
     }
@@ -75,7 +79,7 @@ class DateTimeRangePicker extends React.Component {
             if(pastMaxDate(start, this.props.maxDate, true) || pastMaxDate(end, this.props.maxDate, true)){
                 return false;
             }
-        }  
+        }
         // Else update state to new selected index and update start and end time
         this.setState({selectedRange:index});
         if(value !== "Custom Range"){
@@ -85,7 +89,7 @@ class DateTimeRangePicker extends React.Component {
 
     setToRangeValue(startDate, endDate){
         let rangesArray = Object.values(this.state.ranges)
-        for(let i = 0; i < rangesArray.length; i++){            
+        for(let i = 0; i < rangesArray.length; i++){
             if(rangesArray[i] === "Custom Range"){
                 continue;
             }else if(rangesArray[i][0].isSame(startDate, "minutes") && rangesArray[i][1].isSame(endDate, "minutes")){
@@ -114,7 +118,7 @@ class DateTimeRangePicker extends React.Component {
         });
     }
 
-    dateSelectedNoTimeCallback(cellDate){        
+    dateSelectedNoTimeCallback(cellDate){
         let newDates = datePicked(this.state.start, this.state.end, cellDate, this.state.selectingModeFrom)
         let startDate = newDates.startDate;
         let endDate = newDates.endDate;
@@ -166,7 +170,7 @@ class DateTimeRangePicker extends React.Component {
         if(pastMaxDate(date, this.props.maxDate, true)){
             return false
         }
-        // If Valid Time Change allow the change else set new start and end times 
+        // If Valid Time Change allow the change else set new start and end times
         // to be minute ahead/behind the new date
         if(isValidTimeChange(mode, date, this.state.start, this.state.end)){
             this.setState({
@@ -218,7 +222,7 @@ class DateTimeRangePicker extends React.Component {
             this.updateStartEndAndLabels(this.state.start, this.state.end);
             return false
         }
-        // Else if date valid and date change valid update the date, 
+        // Else if date valid and date change valid update the date,
         // if date invalid go into update invalid mode, adds/subtract 1 days from start/stop value
         if(isValidNewDate && isValidDateChange){
             this.setState({
@@ -300,7 +304,7 @@ class DateTimeRangePicker extends React.Component {
 
     renderStartDate(){
         return(
-                <DatePicker 
+                <DatePicker
                     label="From Date"
                     date={this.state.start}
                     otherDate={this.state.end}
@@ -325,7 +329,7 @@ class DateTimeRangePicker extends React.Component {
 
     renderEndDate(){
         return(
-            <DatePicker 
+            <DatePicker
                 label="To Date"
                 date={this.state.end}
                 otherDate={this.state.start}
@@ -351,17 +355,17 @@ class DateTimeRangePicker extends React.Component {
     }
 
     render(){
-        
+
         return (
             <Fragment>
-                <Ranges 
+                <Ranges
                     ranges={this.state.ranges}
                     selectedRange={this.state.selectedRange}
                     rangeSelectedCallback={this.rangeSelectedCallback}
                     screenWidthToTheRight={this.props.screenWidthToTheRight}
                 />
                 {this.renderStartDate()}
-                {this.renderEndDate()}                
+                {this.renderEndDate()}
             </Fragment>
         )
     }
