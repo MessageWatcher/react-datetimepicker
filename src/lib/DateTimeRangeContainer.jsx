@@ -7,123 +7,146 @@ import momentPropTypes from 'react-moment-proptypes';
 export const mobileBreakPoint = 680;
 
 class DateTimeRangeContainer extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            visible: false,
-            x : 0,
-            y : 0,
-            screenWidthToTheRight : 0
-        }
-        this.resize = this.resize.bind(this);
-        this.onClickContainerHandler= this.onClickContainerHandler.bind(this);
-        this.handleOutsideClick = this.handleOutsideClick.bind(this);
-        this.changeVisibleState = this.changeVisibleState.bind(this);
-        this.keyDown = this.keyDown.bind(this);
+  constructor(props){
+    super(props);
+    this.state = {
+      visible: false,
+      x : 0,
+      y : 0,
+      screenWidthToTheRight : 0
     }
+    this.resize = this.resize.bind(this);
+    this.onClickContainerHandler= this.onClickContainerHandler.bind(this);
+    this.handleOutsideClick = this.handleOutsideClick.bind(this);
+    this.changeVisibleState = this.changeVisibleState.bind(this);
+    this.keyDown = this.keyDown.bind(this);
+  }
 
-    componentDidMount(){
-        window.addEventListener('resize', this.resize);
-        document.addEventListener("keydown", this.keyDown, false);
-        this.resize();
-    }
+  componentDidMount(){
+    window.addEventListener('resize', this.resize);
+    document.addEventListener("keydown", this.keyDown, false);
+    this.resize();
+  }
 
-    componentWillUnmount(){
-        window.removeEventListener('resize', this.resize);
-        document.removeEventListener("keydown", this.keyDown, false);
-    }
+  componentWillUnmount(){
+    window.removeEventListener('resize', this.resize);
+    document.removeEventListener("keydown", this.keyDown, false);
+  }
 
-    resize(){
-        const domNode = findDOMNode(this).children[0];
-        let boundingClientRect = domNode.getBoundingClientRect();
-        let widthRightOfThis = window.innerWidth - boundingClientRect.x;
-        if(widthRightOfThis < mobileBreakPoint){
-            // If in small mode put picker in middle of child
-            let childMiddle = boundingClientRect.width / 2;
-            let containerMiddle = 144;
-            let newY = childMiddle - containerMiddle;
-            this.setState({x:boundingClientRect.height + 5, y:newY, screenWidthToTheRight:widthRightOfThis});
-        }else{
-            this.setState({x:boundingClientRect.height + 5, y:0, screenWidthToTheRight:widthRightOfThis});
-        }
-    }
+  resize(){
+    const domNode = findDOMNode(this).children[0];
+    let boundingClientRect = domNode.getBoundingClientRect();
+    let widthRightOfThis = window.innerWidth - boundingClientRect.x;
+    this.setState({
+      x: boundingClientRect.y + boundingClientRect.height + 5,
+      y: boundingClientRect.x,
+      screenWidthToTheRight: widthRightOfThis
+    });
 
-    keyDown(e){
-        if (e.keyCode === 27) {
-            this.setState({visible:false});
-            document.removeEventListener("keydown", this.keyDown, false);
-        }
-    }
+    /* let widthRightOfThis = window.innerWidth - boundingClientRect.x; */
+    // if (widthRightOfThis < mobileBreakPoint) {
+      // // If in small mode put picker in middle of child
+      // let childMiddle = boundingClientRect.width / 2;
+      // let containerMiddle = 144;
+      // let newY = childMiddle - containerMiddle;
+      // this.setState({
+        // x:boundingClientRect.height + 5,
+        // y:newY,
+        // screenWidthToTheRight:widthRightOfThis
+      // });
+    // } else {
+      // this.setState({
+        // x: boundingClientRect.y + boundingClientRect.height + 5,
+        // y: boundingClientRect.x,
+        // screenWidthToTheRight: widthRightOfThis
+      // });
+    /* } */
+  }
 
-    onClickContainerHandler(event){
-        if(!this.state.visible){
-            document.addEventListener('click', this.handleOutsideClick, false);
-            document.addEventListener("keydown", this.keyDown, false);
-            this.changeVisibleState();
-        }
+  keyDown(e){
+    if (e.keyCode === 27) {
+      this.setState({visible:false});
+      document.removeEventListener("keydown", this.keyDown, false);
     }
+  }
 
-    handleOutsideClick(e) {
-        // ignore clicks on the component itself
-        if(this.state.visible){
-            if (this.container.contains(e.target)) {
-                return;
-            }
-            document.removeEventListener('click', this.handleOutsideClick, false);
-            this.changeVisibleState();
-        }
+  onClickContainerHandler(event){
+    if(!this.state.visible){
+      document.addEventListener('click', this.handleOutsideClick, false);
+      document.addEventListener("keydown", this.keyDown, false);
+      this.changeVisibleState();
     }
+  }
 
-    changeVisibleState(){
-        this.setState(prevState => ({
-            visible: !prevState.visible,
-         }));
+  handleOutsideClick(e) {
+    // ignore clicks on the component itself
+    if(this.state.visible){
+      if (this.container.contains(e.target)) {
+        return;
+      }
+      document.removeEventListener('click', this.handleOutsideClick, false);
+      this.changeVisibleState();
     }
+  }
 
-    shouldShowPicker(){
-        if(this.state.visible && this.state.screenWidthToTheRight < mobileBreakPoint){
-            return "block"
-        } else if(this.state.visible){
-            return "flex"
-        }else {
-            return "none"
-        }
+  changeVisibleState(){
+    this.setState(prevState => ({
+      visible: !prevState.visible,
+    }));
+  }
+
+  shouldShowPicker(){
+    if(this.state.visible && this.state.screenWidthToTheRight < mobileBreakPoint){
+      return "block"
+    } else if(this.state.visible){
+      return "flex"
+    }else {
+      return "none"
     }
-    
-    render(){
-        let showPicker = this.shouldShowPicker();   
-        let x = this.state.x;
-        let y = this.state.y;
-        return (
-                <div id="DateRangePickerContainer" className="daterangepickercontainer" onClick={this.onClickContainerHandler} ref={container => { this.container = container; }}>
-                    {this.props.children && 
-                    <div id="DateRangePickerChildren">
-                        {this.props.children}
-                    </div>}
-                    <div id="daterangepicker" className="daterangepicker" style={{top:x, left:y, display:showPicker}}>
-                        <DateTimeRangePicker 
-                            ranges={this.props.ranges}
-                            start={this.props.start}
-                            end={this.props.end}
-                            local={this.props.local}
-                            applyCallback={this.props.applyCallback}
-                            changeVisibleState={this.changeVisibleState}
-                            screenWidthToTheRight={this.state.screenWidthToTheRight}
-                            maxDate={this.props.maxDate}
-                        />
-                    </div>
-                </div>
-        )
-    }
+  }
+
+  render(){
+    const { containerClassName = "", pickerClassName = "", childrenClassName = "" } = this.props;
+    let showPicker = this.shouldShowPicker();
+    let x = this.state.x;
+    let y = this.state.y;
+    return (
+      <div
+        id="DateRangePickerContainer"
+        className={`daterangepickercontainer ${containerClassName}`}
+        onClick={this.onClickContainerHandler}
+        ref={container => { this.container = container; }}>
+        {this.props.children &&
+          <div id="DateRangePickerChildren" className={childrenClassName}>
+            {this.props.children}
+          </div>}
+          <div
+            id="daterangepicker"
+            className={`daterangepicker ${pickerClassName}`}
+            style={{top:x, left:y, display:showPicker}}>
+            <DateTimeRangePicker
+              ranges={this.props.ranges}
+              start={this.props.start}
+              end={this.props.end}
+              local={this.props.local}
+              applyCallback={this.props.applyCallback}
+              changeVisibleState={this.changeVisibleState}
+              screenWidthToTheRight={this.state.screenWidthToTheRight}
+              maxDate={this.props.maxDate}
+            />
+          </div>
+        </div>
+    )
+  }
 }
 
 DateTimeRangeContainer.propTypes = {
-    ranges: PropTypes.object.isRequired,
-    start: momentPropTypes.momentObj,
-    end: momentPropTypes.momentObj,
-    local: PropTypes.object.isRequired,
-    applyCallback: PropTypes.func.isRequired,
-    maxDate: momentPropTypes.momentObj
+  ranges: PropTypes.object.isRequired,
+  start: momentPropTypes.momentObj,
+  end: momentPropTypes.momentObj,
+  local: PropTypes.object.isRequired,
+  applyCallback: PropTypes.func.isRequired,
+  maxDate: momentPropTypes.momentObj
 };
 
 export default DateTimeRangeContainer;

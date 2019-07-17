@@ -84,24 +84,30 @@ function (_React$Component) {
       var domNode = (0, _reactDom.findDOMNode)(this).children[0];
       var boundingClientRect = domNode.getBoundingClientRect();
       var widthRightOfThis = window.innerWidth - boundingClientRect.x;
+      this.setState({
+        x: boundingClientRect.y + boundingClientRect.height + 5,
+        y: boundingClientRect.x,
+        screenWidthToTheRight: widthRightOfThis
+      });
+      /* let widthRightOfThis = window.innerWidth - boundingClientRect.x; */
+      // if (widthRightOfThis < mobileBreakPoint) {
+      // // If in small mode put picker in middle of child
+      // let childMiddle = boundingClientRect.width / 2;
+      // let containerMiddle = 144;
+      // let newY = childMiddle - containerMiddle;
+      // this.setState({
+      // x:boundingClientRect.height + 5,
+      // y:newY,
+      // screenWidthToTheRight:widthRightOfThis
+      // });
+      // } else {
+      // this.setState({
+      // x: boundingClientRect.y + boundingClientRect.height + 5,
+      // y: boundingClientRect.x,
+      // screenWidthToTheRight: widthRightOfThis
+      // });
 
-      if (widthRightOfThis < mobileBreakPoint) {
-        // If in small mode put picker in middle of child
-        var childMiddle = boundingClientRect.width / 2;
-        var containerMiddle = 144;
-        var newY = childMiddle - containerMiddle;
-        this.setState({
-          x: boundingClientRect.height + 5,
-          y: newY,
-          screenWidthToTheRight: widthRightOfThis
-        });
-      } else {
-        this.setState({
-          x: boundingClientRect.height + 5,
-          y: 0,
-          screenWidthToTheRight: widthRightOfThis
-        });
-      }
+      /* } */
     }
   }, {
     key: "keyDown",
@@ -160,21 +166,29 @@ function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
+      var _this$props = this.props,
+          _this$props$container = _this$props.containerClassName,
+          containerClassName = _this$props$container === void 0 ? "" : _this$props$container,
+          _this$props$pickerCla = _this$props.pickerClassName,
+          pickerClassName = _this$props$pickerCla === void 0 ? "" : _this$props$pickerCla,
+          _this$props$childrenC = _this$props.childrenClassName,
+          childrenClassName = _this$props$childrenC === void 0 ? "" : _this$props$childrenC;
       var showPicker = this.shouldShowPicker();
       var x = this.state.x;
       var y = this.state.y;
       return _react.default.createElement("div", {
         id: "DateRangePickerContainer",
-        className: "daterangepickercontainer",
+        className: "daterangepickercontainer ".concat(containerClassName),
         onClick: this.onClickContainerHandler,
         ref: function ref(container) {
           _this2.container = container;
         }
       }, this.props.children && _react.default.createElement("div", {
-        id: "DateRangePickerChildren"
+        id: "DateRangePickerChildren",
+        className: childrenClassName
       }, this.props.children), _react.default.createElement("div", {
         id: "daterangepicker",
-        className: "daterangepicker",
+        className: "daterangepicker ".concat(pickerClassName),
         style: {
           top: x,
           left: y,
