@@ -15,6 +15,8 @@ var _TimeFunctionUtils = require("../utils/TimeFunctionUtils");
 
 var _StyleUtils = require("../utils/StyleUtils");
 
+var _ShouldUpdate2 = _interopRequireDefault(require("../ShouldUpdate"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -37,8 +39,8 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 var TimeField =
 /*#__PURE__*/
-function (_React$Component) {
-  _inherits(TimeField, _React$Component);
+function (_ShouldUpdate) {
+  _inherits(TimeField, _ShouldUpdate);
 
   function TimeField(props) {
     var _this;
@@ -170,7 +172,7 @@ function (_React$Component) {
   }]);
 
   return TimeField;
-}(_react.default.Component);
+}(_ShouldUpdate2.default);
 
 var _default = TimeField;
 exports.default = _default;

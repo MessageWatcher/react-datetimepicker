@@ -1,7 +1,8 @@
 import React from 'react';
 import '../style/DateTimeRange.css'
+import ShouldUpdate from "../ShouldUpdate";
 
-class ActiveNotifier extends React.Component {
+class ActiveNotifier extends ShouldUpdate {
 
   getDotDiv(text, style){
     return(

@@ -23,6 +23,8 @@ var _ActiveNotifier = _interopRequireDefault(require("./ActiveNotifier"));
 
 var _moment = _interopRequireDefault(require("moment"));
 
+var _ShouldUpdate2 = _interopRequireDefault(require("../ShouldUpdate"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -45,8 +47,8 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 var DatePicker =
 /*#__PURE__*/
-function (_React$Component) {
-  _inherits(DatePicker, _React$Component);
+function (_ShouldUpdate) {
+  _inherits(DatePicker, _ShouldUpdate);
 
   function DatePicker() {
     _classCallCheck(this, DatePicker);
@@ -57,7 +59,7 @@ function (_React$Component) {
   _createClass(DatePicker, [{
     key: "render",
     value: function render() {
-      //If button property present display buttons 
+      //If button property present display buttons
       var buttons;
 
       if (this.props.enableButtons) {
@@ -105,7 +107,7 @@ function (_React$Component) {
   }]);
 
   return DatePicker;
-}(_react.default.Component);
+}(_ShouldUpdate2.default);
 
 var _default = DatePicker;
 exports.default = _default;

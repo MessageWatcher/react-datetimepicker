@@ -19,6 +19,8 @@ var _StyleUtils = require("../utils/StyleUtils");
 
 var _DateSelectedUtils = require("../utils/DateSelectedUtils");
 
+var _ShouldUpdate2 = _interopRequireDefault(require("../ShouldUpdate"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -41,8 +43,8 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 var Cell =
 /*#__PURE__*/
-function (_React$Component) {
-  _inherits(Cell, _React$Component);
+function (_ShouldUpdate) {
+  _inherits(Cell, _ShouldUpdate);
 
   function Cell(props) {
     var _this;
@@ -313,7 +315,7 @@ function (_React$Component) {
   }]);
 
   return Cell;
-}(_react.default.Component);
+}(_ShouldUpdate2.default);
 
 var _default = Cell;
 exports.default = _default;

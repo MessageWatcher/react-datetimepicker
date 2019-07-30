@@ -13,6 +13,8 @@ require("./style/DateTimeRange.css");
 
 var _DateTimeRangePicker = require("./DateTimeRangePicker");
 
+var _ShouldUpdate2 = _interopRequireDefault(require("./ShouldUpdate"));
+
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _reactMomentProptypes = _interopRequireDefault(require("react-moment-proptypes"));
@@ -42,8 +44,8 @@ exports.mobileBreakPoint = mobileBreakPoint;
 
 var DateTimeRangeContainer =
 /*#__PURE__*/
-function (_React$Component) {
-  _inherits(DateTimeRangeContainer, _React$Component);
+function (_ShouldUpdate) {
+  _inherits(DateTimeRangeContainer, _ShouldUpdate);
 
   function DateTimeRangeContainer(props) {
     var _this;
@@ -208,7 +210,7 @@ function (_React$Component) {
   }]);
 
   return DateTimeRangeContainer;
-}(_react.default.Component);
+}(_ShouldUpdate2.default);
 
 DateTimeRangeContainer.propTypes = {
   ranges: _propTypes.default.object.isRequired,

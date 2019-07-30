@@ -2,11 +2,12 @@ import React from 'react';
 import { findDOMNode } from "react-dom";
 import './style/DateTimeRange.css'
 import { DateTimeRangePicker } from './DateTimeRangePicker';
+import ShouldUpdate from "./ShouldUpdate";
 import PropTypes from 'prop-types';
 import momentPropTypes from 'react-moment-proptypes';
 export const mobileBreakPoint = 680;
 
-class DateTimeRangeContainer extends React.Component {
+class DateTimeRangeContainer extends ShouldUpdate {
   constructor(props){
     super(props);
     this.state = {

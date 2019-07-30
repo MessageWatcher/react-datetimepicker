@@ -26,8 +26,10 @@
     "react-bootstrap": "0.31.3",
     "react-dom": "^16.8.4",
     "react-dot-fragment": "0.2.7",
+    "react-fast-compare": "^2.0.4",
     "react-moment-proptypes": "1.6.0",
-    "react-scripts": "^2.1.8"
+    "react-scripts": "^2.1.8",
+    "why-did-you-update": "^1.0.6"
   },
   "scripts": {
     "start": "react-scripts start",

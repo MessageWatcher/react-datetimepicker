@@ -21,6 +21,8 @@ var _TimeFunctionUtils = require("./utils/TimeFunctionUtils");
 
 var _DateSelectedUtils = require("./utils/DateSelectedUtils");
 
+var _ShouldUpdate2 = _interopRequireDefault(require("./ShouldUpdate"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -53,8 +55,8 @@ exports.momentFormat = momentFormat;
 
 var DateTimeRangePicker =
 /*#__PURE__*/
-function (_React$Component) {
-  _inherits(DateTimeRangePicker, _React$Component);
+function (_ShouldUpdate) {
+  _inherits(DateTimeRangePicker, _ShouldUpdate);
 
   function DateTimeRangePicker(props) {
     var _this;
@@ -473,6 +475,6 @@ function (_React$Component) {
   }]);
 
   return DateTimeRangePicker;
-}(_react.default.Component);
+}(_ShouldUpdate2.default);
 
 exports.DateTimeRangePicker = DateTimeRangePicker;

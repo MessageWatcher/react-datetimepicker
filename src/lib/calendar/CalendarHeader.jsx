@@ -1,8 +1,9 @@
 import React from 'react';
 import '../style/DateTimeRange.css'
 import "../style/DateTimeRange.css"
+import ShouldUpdate from "../ShouldUpdate";
 
-class CalendarHeader extends React.Component {
+class CalendarHeader extends ShouldUpdate {
 
     mapHeaderToDiv(headers){
         return headers.map(function(header, i){

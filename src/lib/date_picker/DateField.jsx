@@ -1,8 +1,9 @@
 import React from 'react';
 import '../style/DateTimeRange.css'
 import {InputGroup, FormControl, Glyphicon} from 'react-bootstrap'
+import ShouldUpdate from "../ShouldUpdate";
 
-class DateField extends React.Component {
+class DateField extends ShouldUpdate {
 
   constructor(props){
     super(props);
@@ -11,7 +12,7 @@ class DateField extends React.Component {
     this.onBlur = this.onBlur.bind(this);
     this.onClick= this.onClick.bind(this);
   }
-  
+
   onChangeDateTextHandler(event){
     this.props.onChangeDateTextHandlerCallback(event.target.value, this.props.mode);
   }
@@ -32,9 +33,9 @@ class DateField extends React.Component {
     return(
         <InputGroup onClick={this.onClick} style={{cursor:"pointer"}}>
             <InputGroup.Addon className="calendarAddon"><Glyphicon glyph="calendar" /></InputGroup.Addon>
-            <FormControl 
-              className="inputDate" 
-              type="text" 
+            <FormControl
+              className="inputDate"
+              type="text"
               value={this.props.dateLabel}
               onChange={this.onChangeDateTextHandler}
               onBlur={this.onBlur}

@@ -2,8 +2,9 @@ import React from 'react';
 import '../style/DateTimeRange.css'
 import "../style/DateTimeRange.css"
 import PropTypes from 'prop-types';
+import ShouldUpdate from "../ShouldUpdate";
 
-class Label extends React.Component {
+class Label extends ShouldUpdate {
   render(){
     return(
         <div className="dateTimeLabel">

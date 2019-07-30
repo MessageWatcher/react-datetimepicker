@@ -6,8 +6,9 @@ import CalendarHeader from './CalendarHeader'
 import CalendarRows from './CalendarRows'
 import moment from 'moment'
 import {getMonth, getYear, getFourtyTwoDays} from '../utils/TimeFunctionUtils'
+import ShouldUpdate from "../ShouldUpdate";
 
-class Calendar extends React.Component {
+class Calendar extends ShouldUpdate {
 
   constructor(props){
     super(props);
@@ -33,7 +34,7 @@ class Calendar extends React.Component {
 
   updateMonthYear(){
     let newMonth = getMonth(this.props.date, this.props.otherDate, this.props.mode);
-    let newYear = getYear(this.props.date, this.props.otherDate, this.props.mode);    
+    let newYear = getYear(this.props.date, this.props.otherDate, this.props.mode);
     this.setState({
       month: newMonth,
       year : newYear
@@ -56,11 +57,11 @@ class Calendar extends React.Component {
     let endYear = moment().add(yearsToGetFuture, "years").get('year')
     let addedCurrentYear = false
     while(!addedCurrentYear){
-        if(past.get("years") === endYear){
-            addedCurrentYear = true;
-        }
-        years.push(past.year());
-        past.add(1, "years");
+      if(past.get("years") === endYear){
+        addedCurrentYear = true;
+      }
+      years.push(past.year());
+      past.add(1, "years");
     }
     return years;
   }
@@ -85,7 +86,7 @@ class Calendar extends React.Component {
     if(isNextChange){
       newMonthYear = this.getNextMonth(monthLocal, yearLocal, years);
     }
-    
+
     this.setState({
       year: newMonthYear.yearLocal,
       month: newMonthYear.monthLocal
@@ -95,7 +96,7 @@ class Calendar extends React.Component {
   getPreviousMonth(monthLocal, yearLocal, years){
     let isStartOfMonth = monthLocal === 0;
     let isFirstYear = parseInt(yearLocal) === years[0];
-    
+
     if(!(isStartOfMonth && isFirstYear)){
       if(monthLocal === 0){
         monthLocal = 11;
@@ -140,37 +141,37 @@ class Calendar extends React.Component {
 
     let fourtyTwoDays = getFourtyTwoDays(this.state.month, this.state.year, sundayFirst);
     return(
-        <div>
-            <MonthYearSelector 
-              date={this.props.date}
-              mode={this.props.mode}
-              otherDate={this.props.otherDate}
-              months={months}
-              years={years}
-              month={this.state.month}
-              year={this.state.year}
-              changeMonthCallback={this.changeMonthCallback}
-              changeYearCallback={this.changeYearCallback}
-              changeMonthArrowsCallback={this.changeMonthArrowsCallback}
-            />
-            <CalendarHeader 
-              headers={headers}
-            />
-            <CalendarRows 
-              fourtyTwoDays={fourtyTwoDays}
-              date={this.props.date}
-              mode={this.props.mode}
-              otherDate={this.props.otherDate}
-              maxDate={this.props.maxDate}
-              month={this.state.month}
-              year={this.state.year}
-              dateSelectedNoTimeCallback={this.props.dateSelectedNoTimeCallback}
-              keyboardCellCallback={this.props.keyboardCellCallback}
-              focusOnCallback={this.props.focusOnCallback}
-              focusDate={this.props.focusDate}
-              cellFocusedCallback={this.props.cellFocusedCallback}
-            />
-        </div>
+      <div>
+        <MonthYearSelector
+          date={this.props.date}
+          mode={this.props.mode}
+          otherDate={this.props.otherDate}
+          months={months}
+          years={years}
+          month={this.state.month}
+          year={this.state.year}
+          changeMonthCallback={this.changeMonthCallback}
+          changeYearCallback={this.changeYearCallback}
+          changeMonthArrowsCallback={this.changeMonthArrowsCallback}
+        />
+        <CalendarHeader
+          headers={headers}
+        />
+        <CalendarRows
+          fourtyTwoDays={fourtyTwoDays}
+          date={this.props.date}
+          mode={this.props.mode}
+          otherDate={this.props.otherDate}
+          maxDate={this.props.maxDate}
+          month={this.state.month}
+          year={this.state.year}
+          dateSelectedNoTimeCallback={this.props.dateSelectedNoTimeCallback}
+          keyboardCellCallback={this.props.keyboardCellCallback}
+          focusOnCallback={this.props.focusOnCallback}
+          focusDate={this.props.focusDate}
+          cellFocusedCallback={this.props.cellFocusedCallback}
+        />
+      </div>
     );
   }
 }

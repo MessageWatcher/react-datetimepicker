@@ -7,11 +7,7 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
-require("../style/DateTimeRange.css");
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _ShouldUpdate2 = _interopRequireDefault(require("../ShouldUpdate"));
+var _reactFastCompare = _interopRequireDefault(require("react-fast-compare"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -33,31 +29,28 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var Label =
+var ShouldUpdate =
 /*#__PURE__*/
-function (_ShouldUpdate) {
-  _inherits(Label, _ShouldUpdate);
+function (_React$Component) {
+  _inherits(ShouldUpdate, _React$Component);
 
-  function Label() {
-    _classCallCheck(this, Label);
+  function ShouldUpdate() {
+    _classCallCheck(this, ShouldUpdate);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Label).apply(this, arguments));
+    return _possibleConstructorReturn(this, _getPrototypeOf(ShouldUpdate).apply(this, arguments));
   }
 
-  _createClass(Label, [{
-    key: "render",
-    value: function render() {
-      return _react.default.createElement("div", {
-        className: "dateTimeLabel"
-      }, this.props.label);
+  _createClass(ShouldUpdate, [{
+    key: "shouldComponentUpdate",
+    value: function shouldComponentUpdate(nextProps, nextState) {
+      return !(0, _reactFastCompare.default)(nextProps, this.props) || !(0, _reactFastCompare.default)(nextState, this.state);
+      ;
     }
   }]);
 
-  return Label;
-}(_ShouldUpdate2.default);
+  return ShouldUpdate;
+}(_react.default.Component);
 
-var _default = Label;
+;
+var _default = ShouldUpdate;
 exports.default = _default;
-Label.propTypes = {
-  label: _propTypes.default.string.isRequired
-};
