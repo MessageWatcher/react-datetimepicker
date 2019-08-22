@@ -77,8 +77,8 @@ function (_ShouldUpdate) {
   }, {
     key: "updateMonthYear",
     value: function updateMonthYear() {
-      var newMonth = (0, _TimeFunctionUtils.getMonth)(this.props.date, this.props.otherDate, this.props.mode);
-      var newYear = (0, _TimeFunctionUtils.getYear)(this.props.date, this.props.otherDate, this.props.mode);
+      var newMonth = (0, _TimeFunctionUtils.getMonth)(this.props.date, this.props.otherDate, this.props.mode, this.props.selectedSide);
+      var newYear = (0, _TimeFunctionUtils.getYear)(this.props.date, this.props.otherDate, this.props.mode, this.props.selectedSide);
       this.setState({
         month: newMonth,
         year: newYear

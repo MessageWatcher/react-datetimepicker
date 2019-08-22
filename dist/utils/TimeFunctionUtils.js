@@ -40,33 +40,39 @@ var generateMinutes = function generateMinutes() {
 exports.generateMinutes = generateMinutes;
 
 function workOutMonthYear(date, secondDate, mode) {
-  // If both months are different months then
-  // allow normal display in the calendar
+  var selectedSide = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : _DateTimeRangePicker.PositionEnum.left;
   var selectedMonth = date.month();
   var otherMonth = secondDate.month();
 
   if (selectedMonth !== otherMonth) {
     return date;
-  } // If both months are the same and the same year 
-  // have "end"/right as the month and "start"/left as -1 month
-  else if (date.year() === secondDate.year() && mode === _DateTimeRangePicker.ModeEnum.start) {
-      var lastMonth = JSON.parse(JSON.stringify(date));
-      lastMonth = (0, _moment.default)(lastMonth);
-      lastMonth.subtract(1, "month");
-      return lastMonth;
-    } else {
-      return date;
-    }
+  }
+
+  if (selectedSide === _DateTimeRangePicker.PositionEnum.left && mode === _DateTimeRangePicker.ModeEnum.end) {
+    var nextMonth = JSON.parse(JSON.stringify(date));
+    nextMonth = (0, _moment.default)(nextMonth);
+    nextMonth.add(1, "month");
+    return nextMonth;
+  }
+
+  if (selectedSide === _DateTimeRangePicker.PositionEnum.right && mode === _DateTimeRangePicker.ModeEnum.start) {
+    var lastMonth = JSON.parse(JSON.stringify(date));
+    lastMonth = (0, _moment.default)(lastMonth);
+    lastMonth.subtract(1, "month");
+    return lastMonth;
+  }
+
+  return date;
 }
 
-var getMonth = function getMonth(date, secondDate, mode) {
-  return workOutMonthYear(date, secondDate, mode).month();
+var getMonth = function getMonth(date, secondDate, mode, selectedSide) {
+  return workOutMonthYear(date, secondDate, mode, selectedSide).month();
 };
 
 exports.getMonth = getMonth;
 
-var getYear = function getYear(date, secondDate, mode) {
-  return workOutMonthYear(date, secondDate, mode).year();
+var getYear = function getYear(date, secondDate, mode, selectedSide) {
+  return workOutMonthYear(date, secondDate, mode, selectedSide).year();
 };
 
 exports.getYear = getYear;

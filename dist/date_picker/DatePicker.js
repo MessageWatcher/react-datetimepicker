@@ -91,6 +91,7 @@ function (_ShouldUpdate) {
       })), _react.default.createElement(_Calendar.default, {
         date: this.props.date,
         mode: this.props.mode,
+        selectedSide: this.props.selectedSide,
         otherDate: this.props.otherDate,
         maxDate: this.props.maxDate,
         dateSelectedNoTimeCallback: this.props.dateSelectedNoTimeCallback,

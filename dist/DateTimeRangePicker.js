@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.DateTimeRangePicker = exports.momentFormat = exports.ModeEnum = void 0;
+exports.DateTimeRangePicker = exports.momentFormat = exports.PositionEnum = exports.ModeEnum = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -50,6 +50,11 @@ var ModeEnum = Object.freeze({
   "end": "end"
 });
 exports.ModeEnum = ModeEnum;
+var PositionEnum = Object.freeze({
+  "left": "left",
+  "right": "right"
+});
+exports.PositionEnum = PositionEnum;
 var momentFormat = "DD-MM-YYYY HH:mm";
 exports.momentFormat = momentFormat;
 
@@ -201,7 +206,7 @@ function (_ShouldUpdate) {
     }
   }, {
     key: "dateSelectedNoTimeCallback",
-    value: function dateSelectedNoTimeCallback(cellDate) {
+    value: function dateSelectedNoTimeCallback(cellDate, selectedSide) {
       var newDates = (0, _DateSelectedUtils.datePicked)(this.state.start, this.state.end, cellDate, this.state.selectingModeFrom);
       var startDate = newDates.startDate;
       var endDate = newDates.endDate;
@@ -211,7 +216,8 @@ function (_ShouldUpdate) {
       this.setToRangeValue(newStart, newEnd);
       this.setState(function (prevState) {
         return {
-          selectingModeFrom: !prevState.selectingModeFrom
+          selectingModeFrom: !prevState.selectingModeFrom,
+          selectedSide: selectedSide
         };
       });
     }
@@ -420,6 +426,7 @@ function (_ShouldUpdate) {
         date: this.state.start,
         otherDate: this.state.end,
         mode: ModeEnum.start,
+        selectedSide: this.state.selectedSide,
         dateSelectedNoTimeCallback: this.dateSelectedNoTimeCallback,
         timeChangeCallback: this.timeChangeCallback,
         dateTextFieldCallback: this.dateTextFieldCallback,
@@ -444,6 +451,7 @@ function (_ShouldUpdate) {
         date: this.state.end,
         otherDate: this.state.start,
         mode: ModeEnum.end,
+        selectedSide: this.state.selectedSide,
         dateSelectedNoTimeCallback: this.dateSelectedNoTimeCallback,
         timeChangeCallback: this.timeChangeCallback,
         dateTextFieldCallback: this.dateTextFieldCallback,

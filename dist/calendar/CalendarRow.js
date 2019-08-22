@@ -53,6 +53,7 @@ function (_React$Component) {
           key: i,
           cellDay: this.props.rowDays[i],
           date: this.props.date,
+          mode: this.props.mode,
           otherDate: this.props.otherDate,
           maxDate: this.props.maxDate,
           month: this.props.month,

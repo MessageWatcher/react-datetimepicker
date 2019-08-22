@@ -21,6 +21,8 @@ var _DateSelectedUtils = require("../utils/DateSelectedUtils");
 
 var _ShouldUpdate2 = _interopRequireDefault(require("../ShouldUpdate"));
 
+var _DateTimeRangePicker = require("../DateTimeRangePicker");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -150,7 +152,8 @@ function (_ShouldUpdate) {
         return;
       }
 
-      this.props.dateSelectedNoTimeCallback(this.props.cellDay);
+      var side = this.props.mode === _DateTimeRangePicker.ModeEnum.start ? _DateTimeRangePicker.PositionEnum.left : _DateTimeRangePicker.PositionEnum.right;
+      this.props.dateSelectedNoTimeCallback(this.props.cellDay, side);
     }
   }, {
     key: "mouseEnter",

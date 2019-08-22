@@ -54,6 +54,7 @@ function (_React$Component) {
         calendarRows.push(_react.default.createElement(_CalendarRow.default, {
           key: i,
           rowDays: rowDays,
+          mode: this.props.mode,
           date: this.props.date,
           otherDate: this.props.otherDate,
           maxDate: this.props.maxDate,
