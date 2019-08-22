@@ -1,4 +1,4 @@
-import {ModeEnum} from '../DateTimeRangePicker'
+import { ModeEnum, PositionEnum } from '../DateTimeRangePicker'
 import moment from 'moment'
 
 export const generateHours = () => {
@@ -13,7 +13,7 @@ export const generateMinutes = () => {
     let minutes = [];
     for(let i = 0; i < 60; i++){
         if(i < 10){
-            minutes.push("0" + i.toString());  
+            minutes.push("0" + i.toString());
         }else{
             minutes.push(i.toString());
         }
@@ -21,32 +21,33 @@ export const generateMinutes = () => {
     return minutes;
 }
 
-function workOutMonthYear(date, secondDate, mode){
-    // If both months are different months then
-    // allow normal display in the calendar
-    let selectedMonth = date.month();
-    let otherMonth = secondDate.month();
-    if(selectedMonth !== otherMonth){
-      return date;
-    }
-    // If both months are the same and the same year 
-    // have "end"/right as the month and "start"/left as -1 month
-    else if(date.year() === secondDate.year() && mode === ModeEnum.start){
-      let lastMonth = JSON.parse(JSON.stringify(date));
-      lastMonth = moment(lastMonth);
-      lastMonth.subtract(1, "month");
-      return lastMonth;
-    }else{
-      return date;
-    }
+function workOutMonthYear(date, secondDate, mode, selectedSide = PositionEnum.left){
+  let selectedMonth = date.month();
+  let otherMonth = secondDate.month();
+  if(selectedMonth !== otherMonth){
+    return date;
+  }
+  if (selectedSide === PositionEnum.left && mode === ModeEnum.end) {
+    let nextMonth = JSON.parse(JSON.stringify(date));
+    nextMonth = moment(nextMonth);
+    nextMonth.add(1, "month");
+    return nextMonth;
+  }
+  if (selectedSide === PositionEnum.right && mode === ModeEnum.start) {
+    let lastMonth = JSON.parse(JSON.stringify(date));
+    lastMonth = moment(lastMonth);
+    lastMonth.subtract(1, "month");
+    return lastMonth;
+  }
+  return date;
 }
 
-export const getMonth = (date, secondDate, mode) => {
-   return workOutMonthYear(date, secondDate, mode).month();
+export const getMonth = (date, secondDate, mode, selectedSide) => {
+  return workOutMonthYear(date, secondDate, mode, selectedSide).month();
 }
 
-export const getYear = (date, secondDate, mode) => {
-    return workOutMonthYear(date, secondDate, mode).year();
+export const getYear = (date, secondDate, mode, selectedSide) => {
+  return workOutMonthYear(date, secondDate, mode, selectedSide).year();
 }
 
 const getDaysBeforeStartMonday= (firstDayOfMonth) => {
@@ -82,7 +83,7 @@ const getDaysBeforeStartMonday= (firstDayOfMonth) => {
 const getDaysBeforeStartSunday= (firstDayOfMonth) => {
     let fourtyTwoDays = []
     let dayBeforeFirstDayOfMonth = firstDayOfMonth.day() - 1; // We dont want to include the first day of the new month
-        
+
     // Case whereby we need all previous week days
     if(dayBeforeFirstDayOfMonth === -1){
         for(let i = 7; i > 0; i--){
@@ -118,7 +119,7 @@ export const getFourtyTwoDays = (initMonth, initYear, sundayFirst) => {
     // Add in all days this month
     for(let i = 0; i < firstDayOfMonth.daysInMonth(); i++){
         fourtyTwoDays.push(firstDayOfMonth.clone().add(i,'d'));
-    } 
+    }
     // Add in all days at the end of the month until last day of week seen
     let lastDayOfMonth = moment(new Date(initYear, initMonth, firstDayOfMonth.daysInMonth()));
     let toAdd = 1;

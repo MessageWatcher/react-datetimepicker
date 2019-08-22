@@ -33,8 +33,8 @@ class Calendar extends ShouldUpdate {
   }
 
   updateMonthYear(){
-    let newMonth = getMonth(this.props.date, this.props.otherDate, this.props.mode);
-    let newYear = getYear(this.props.date, this.props.otherDate, this.props.mode);
+    let newMonth = getMonth(this.props.date, this.props.otherDate, this.props.mode, this.props.selectedSide);
+    let newYear = getYear(this.props.date, this.props.otherDate, this.props.mode, this.props.selectedSide);
     this.setState({
       month: newMonth,
       year : newYear

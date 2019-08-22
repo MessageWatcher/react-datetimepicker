@@ -14,6 +14,7 @@ generateDays(){
     calendarRows.push(<CalendarRow 
       key={i}
       rowDays={rowDays}
+      mode={this.props.mode}
       date={this.props.date}
       otherDate={this.props.otherDate}
       maxDate={this.props.maxDate}

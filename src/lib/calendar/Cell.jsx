@@ -7,6 +7,7 @@ import moment from 'moment'
 import { addFocusStyle } from '../utils/StyleUtils';
 import { pastMaxDate } from '../utils/DateSelectedUtils'
 import ShouldUpdate from "../ShouldUpdate";
+import { ModeEnum, PositionEnum } from '../DateTimeRangePicker'
 
 class Cell extends ShouldUpdate {
   constructor(props){
@@ -88,7 +89,8 @@ class Cell extends ShouldUpdate {
     if(pastMaxDate(this.props.cellDay, this.props.maxDate, false)){
       return;
     }
-    this.props.dateSelectedNoTimeCallback(this.props.cellDay);
+    const side = this.props.mode === ModeEnum.start ? PositionEnum.left : PositionEnum.right;
+    this.props.dateSelectedNoTimeCallback(this.props.cellDay, side);
   }
 
   mouseEnter(){

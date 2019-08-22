@@ -8,7 +8,16 @@ import {isValidTimeChange} from './utils/TimeFunctionUtils'
 import {datePicked, pastMaxDate} from './utils/DateSelectedUtils'
 import ShouldUpdate from "./ShouldUpdate";
 
-export const ModeEnum = Object.freeze({"start":"start", "end":"end"});
+export const ModeEnum = Object.freeze({
+  "start":"start",
+  "end":"end",
+});
+
+export const PositionEnum = Object.freeze({
+  "left": "left",
+  "right": "right"
+});
+
 export var momentFormat = "DD-MM-YYYY HH:mm";
 
 class DateTimeRangePicker extends ShouldUpdate {
@@ -119,7 +128,7 @@ class DateTimeRangePicker extends ShouldUpdate {
     });
   }
 
-  dateSelectedNoTimeCallback(cellDate){
+  dateSelectedNoTimeCallback(cellDate, selectedSide){
     let newDates = datePicked(this.state.start, this.state.end, cellDate, this.state.selectingModeFrom)
     let startDate = newDates.startDate;
     let endDate = newDates.endDate;
@@ -128,7 +137,8 @@ class DateTimeRangePicker extends ShouldUpdate {
     this.updateStartEndAndLabels(newStart, newEnd);
     this.setToRangeValue(newStart, newEnd);
     this.setState((prevState) => ({
-      selectingModeFrom: !prevState.selectingModeFrom
+      selectingModeFrom: !prevState.selectingModeFrom,
+      selectedSide
     }))
   }
 
@@ -310,6 +320,7 @@ class DateTimeRangePicker extends ShouldUpdate {
         date={this.state.start}
         otherDate={this.state.end}
         mode={ModeEnum.start}
+        selectedSide={this.state.selectedSide}
         dateSelectedNoTimeCallback={this.dateSelectedNoTimeCallback}
         timeChangeCallback={this.timeChangeCallback}
         dateTextFieldCallback={this.dateTextFieldCallback}
@@ -335,6 +346,7 @@ class DateTimeRangePicker extends ShouldUpdate {
         date={this.state.end}
         otherDate={this.state.start}
         mode={ModeEnum.end}
+        selectedSide={this.state.selectedSide}
         dateSelectedNoTimeCallback={this.dateSelectedNoTimeCallback}
         timeChangeCallback={this.timeChangeCallback}
         dateTextFieldCallback={this.dateTextFieldCallback}

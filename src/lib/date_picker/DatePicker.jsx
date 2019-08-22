@@ -39,6 +39,7 @@ class DatePicker extends ShouldUpdate {
         <Calendar
           date={this.props.date}
           mode={this.props.mode}
+          selectedSide={this.props.selectedSide}
           otherDate={this.props.otherDate}
           maxDate={this.props.maxDate}
           dateSelectedNoTimeCallback={this.props.dateSelectedNoTimeCallback}
