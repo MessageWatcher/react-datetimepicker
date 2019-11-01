@@ -8,6 +8,8 @@ import momentPropTypes from 'react-moment-proptypes';
 export const mobileBreakPoint = 680;
 
 class DateTimeRangeContainer extends ShouldUpdate {
+  _isMounted = false;
+
   constructor(props){
     super(props);
     this.state = {
@@ -24,12 +26,14 @@ class DateTimeRangeContainer extends ShouldUpdate {
   }
 
   componentDidMount(){
+    this._isMounted = true;
     window.addEventListener('resize', this.resize);
     document.addEventListener("keydown", this.keyDown, false);
     this.resize();
   }
 
   componentWillUnmount(){
+    this._isMounted = false;
     window.removeEventListener('resize', this.resize);
     document.removeEventListener("keydown", this.keyDown, false);
   }
@@ -86,7 +90,9 @@ class DateTimeRangeContainer extends ShouldUpdate {
         return;
       }
       document.removeEventListener('click', this.handleOutsideClick, false);
-      this.changeVisibleState();
+      if (this._isMounted) {
+        this.changeVisibleState();
+      }
     }
   }
 

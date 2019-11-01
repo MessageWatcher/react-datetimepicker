@@ -77,6 +77,9 @@ function (_ShouldUpdate) {
   }, {
     key: "componentWillUnmount",
     value: function componentWillUnmount() {
+      this.setState({
+        visible: false
+      });
       window.removeEventListener('resize', this.resize);
       document.removeEventListener("keydown", this.keyDown, false);
     }
@@ -139,8 +142,7 @@ function (_ShouldUpdate) {
           return;
         }
 
-        document.removeEventListener('click', this.handleOutsideClick, false);
-        this.changeVisibleState();
+        document.removeEventListener('click', this.handleOutsideClick, false); // this.changeVisibleState();
       }
     }
   }, {
