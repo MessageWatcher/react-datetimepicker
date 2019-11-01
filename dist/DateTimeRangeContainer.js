@@ -39,6 +39,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var mobileBreakPoint = 680;
 exports.mobileBreakPoint = mobileBreakPoint;
 
@@ -53,6 +55,9 @@ function (_ShouldUpdate) {
     _classCallCheck(this, DateTimeRangeContainer);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(DateTimeRangeContainer).call(this, props));
+
+    _defineProperty(_assertThisInitialized(_this), "_isMounted", false);
+
     _this.state = {
       visible: false,
       x: 0,
@@ -70,6 +75,7 @@ function (_ShouldUpdate) {
   _createClass(DateTimeRangeContainer, [{
     key: "componentDidMount",
     value: function componentDidMount() {
+      this._isMounted = true;
       window.addEventListener('resize', this.resize);
       document.addEventListener("keydown", this.keyDown, false);
       this.resize();
@@ -77,9 +83,7 @@ function (_ShouldUpdate) {
   }, {
     key: "componentWillUnmount",
     value: function componentWillUnmount() {
-      this.setState({
-        visible: false
-      });
+      this._isMounted = false;
       window.removeEventListener('resize', this.resize);
       document.removeEventListener("keydown", this.keyDown, false);
     }
@@ -142,7 +146,11 @@ function (_ShouldUpdate) {
           return;
         }
 
-        document.removeEventListener('click', this.handleOutsideClick, false); // this.changeVisibleState();
+        document.removeEventListener('click', this.handleOutsideClick, false);
+
+        if (this._isMounted) {
+          this.changeVisibleState();
+        }
       }
     }
   }, {
