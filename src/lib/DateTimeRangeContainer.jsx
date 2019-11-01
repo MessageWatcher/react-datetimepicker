@@ -82,7 +82,7 @@ class DateTimeRangeContainer extends ShouldUpdate {
   handleOutsideClick(e) {
     // ignore clicks on the component itself
     if(this.state.visible){
-      if (this.container.contains(e.target)) {
+      if (this.container && this.container.contains(e.target)) {
         return;
       }
       document.removeEventListener('click', this.handleOutsideClick, false);
